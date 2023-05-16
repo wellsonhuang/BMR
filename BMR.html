@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMR Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 5px;
+    }
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>BMR Calculator</h1>
+  <div class="container">
+    <form id="myForm">
+      <div class="form-group">
+        <label for="sex">Sex:</label>
+        <input type="radio" name="sex" id="male" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" name="sex" id="female" value="female" required>
+        <label for="female">Female</label>
+      </div>
+      <div class="form-group">
+        <label for="height">Height (cm):</label>
+        <input type="text" name="height" id="height" required>
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight (kg):</label>
+        <input type="text" name="weight" id="weight" required>
+      </div>
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="text" name="age" id="age" required>
+      </div>
+      <button type="submit">submit</button>
+    </form>
+    <div class="result">
+      BMR: <span id="bmr"></span>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // 防止表單提交後刷新頁面
+
+      const sex = document.querySelector("input[name=sex]:checked").value;
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const age = parseInt(document.getElementById("age").value);
+
+      let bmr;
+
+      if (sex === "male") {
+        bmr = 9.99 * weight + 6.25 * height - 4.92 * age + 5;
+      } else if (sex === "female") {
+        bmr = 9.99 * weight + 6.25 * height - 4.92 * age - 161;
+      } else {
+        document.getElementById("bmr").textContent = "Invalid sex";
+        return;
+      }
+
+      alert("您的BMR為: " + bmr.toFixed(2));
+    });
+  </script>
+</body>
+</html>
